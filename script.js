@@ -1,5 +1,23 @@
-document.getElementById('date').valueAsDate = new Date();
-document.getElementById('savoir').focus();
+let date = new Date();
+let jour = date.getDate();
+let mois = date.getMonth() + 1;
+mois = mois.toLocaleString('fr-FR', {minimumIntegerDigits: 2, useGrouping: false})
+let annee = date.getFullYear();
+let complet = "" + annee + "-" + mois + "-" + jour;
+$("#date").val(complet);
+$("#savoir").focus();
+
+setInterval(
+    () => {
+        $.ajax({
+                url: "https://api.chucknorris.io/jokes/random",
+                method: "GET",
+            }
+        ).done(
+            (donnees) => $("#chuck").text(donnees.value));
+    }, 10000
+)
+
 $("#bouton").click(
     () => {
         let nouvelElement = $('<li></li>');
